@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Transport } from '@nestjs/microservices';
-import { RabbitMQ, UserMSG } from './common/constants';
+import { RabbitMQ } from './common/constants';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice(AppModule, {

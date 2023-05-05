@@ -7,15 +7,12 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    UserModule,
     ConfigModule.forRoot({
-      envFilePath: ['.env.development', '.env.production'],
+      envFilePath: ['.env.development'],
       isGlobal: true,
     }),
-    MongooseModule.forRoot(process.env.URI_MONGODB, {
-      useCreateIndex: true,
-      useFindAndModify: false,
-    }),
+    MongooseModule.forRoot(process.env.URI_MONGODB),
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
