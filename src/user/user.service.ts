@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { UserDto } from './dto/user.dto';
 import { IUser } from 'src/common/interfaces/user.interface';
 import * as bcrypt from 'bcrypt';
@@ -23,6 +23,10 @@ export class UserService {
     return bcrypt.hash(password, salt);
   }
   async create(userDto: UserDto): Promise<IUser> {
+    const user = await this.findByUsername(userDto.username);
+    if (user) {
+      throw new HttpException('User already exists', HttpStatus.BAD_REQUEST);
+    }
     const hash = await this.hashPassword(userDto.password);
     const newUser = new this.model({ ...userDto, password: hash });
     return await newUser.save();
