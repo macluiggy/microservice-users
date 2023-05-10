@@ -8,6 +8,5 @@ RUN npm install
 
 COPY ./dist ./src
 
-EXPOSE 3000
 
 CMD ["node", "src/main.js"]
